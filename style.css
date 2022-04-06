@@ -1,8 +1,50 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator {
+    
+    border: solid 2px black;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.screen {
+    border: 2px solid black;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    text-align:right;
+    padding: 10px 10px;
+    padding-bottom: 0;
+}
+
+.screenLastOp {
+    min-height: 32px;
+    font-size: 20px;
+}
+
+.screenCurrent {
+    min-height: 64px;
+    font-size: 40px;
+    
+}
+
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    
 }
 
 .span2 {
     grid-column: span 2;
+}
+
+button {
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 20px;
+    
 }
