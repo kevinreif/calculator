@@ -3,19 +3,23 @@ let secondNumber = "";
 let operation = null;
 let fullOperation = null;
 let result = ""
+let evaluations = 0;
 
-const numberButtons = document.querySelectorAll('[data-number');
-const operatorButtons = document.querySelectorAll('[data-operator');
+const numberButtons = document.querySelectorAll('[data-number]');
+const operatorButtons = document.querySelectorAll('[data-operator]');
 const equalsButton = document.querySelector('.equalsButton');
 const clearButton = document.querySelector('.clearButton');
 const deleteButton = document.querySelector('.deleteButton');
 const pointButton = document.querySelector('.pointButton');
 const screenCurrent = document.querySelector('.screenCurrent');
 const screenLast = document.querySelector('.screenLastOp');
+const percentButton = document.querySelector('.percentButton')
 
 deleteButton.addEventListener('click', deleteNumber);
 clearButton.addEventListener('click', clear);
 equalsButton.addEventListener('click', evaluate);
+pointButton.addEventListener('click', addDecimal)
+percentButton.addEventListener('click', percent)
 
 
 function add (a, b) {
@@ -34,11 +38,25 @@ function divide(a, b) {
     return a / b;
 }
 
+function percent() {
+    setFirstNumber();
+    if (firstNumber === "" || firstNumber === 0) {
+        return
+    }
+
+    setFirstNumber();
+    screenCurrent.textContent = firstNumber / 100;
+}
+
 function clearCurrentScreen() {
     screenCurrent.textContent = "";
 }
 
 function displayNumber(num) {
+    if (result != null) {
+        clearCurrentScreen();
+        result = null;
+    }
     if (screenCurrent.textContent === "0") {
         clearCurrentScreen();
     }
@@ -46,12 +64,28 @@ function displayNumber(num) {
 }
 
 function setOperation(op) {
-    if (operation != null) {
+    if (operation != null && evaluations === 0) {
         return;
     }
+
+    
+
+    if (firstNumber != "" && evaluations > 0) {
+        setSecondNumber();
+        fullOperation += secondNumber + " " + op + " ";
+        console.log(firstNumber, secondNumber, operation);
+        screenLast.textContent = fullOperation;
+        result = compute(firstNumber, secondNumber, operation);
+        screenCurrent.textContent = result;
+        operation = op;
+        firstNumber = result;
+        console.log(firstNumber)
+        return;
+    }
+    
+    operation = op;
     setFirstNumber();
 
-    operation = op;
 
     if (fullOperation === null) {
     fullOperation = firstNumber + " " + operation + " ";
@@ -61,7 +95,7 @@ function setOperation(op) {
 
     screenLast.textContent = fullOperation;
     screenCurrent.textContent = 0;
-    console.log(firstNumber + " " + operation)
+    evaluations++;
 }
 
 function deleteNumber() {
@@ -80,6 +114,10 @@ function setSecondNumber() {
     secondNumber = screenCurrent.textContent;
 }
 
+function addDecimal() {
+    screenCurrent.textContent = screenCurrent.textContent + ".";
+}
+
 function clear() {
     firstNumber = "";
     secondNumber = "";
@@ -87,6 +125,7 @@ function clear() {
     screenLast.textContent = "";
     screenCurrent.textContent = 0;
     fullOperation = null;
+    evaluations = 0;
 }
 
 function evaluate() {
@@ -94,11 +133,14 @@ function evaluate() {
         return;
     }
     setSecondNumber();
+    console.log(operation)
     fullOperation += secondNumber + " = ";
     screenLast.textContent = fullOperation;
     result = compute(firstNumber, secondNumber, operation);
     screenCurrent.textContent = result;
     operation = null;
+    firstNumber = "";
+    secondNumber = "";
 }
 
 function compute(a, b, op) {

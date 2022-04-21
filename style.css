@@ -1,18 +1,25 @@
+body {
+    background-color: #c7c7c7;
+}
+
 .container {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 5%;
+    box-shadow: #373737;
 }
 
 .calculator {
-    
-    border: solid 2px black;
+    border: solid 3px black;
+    background-color: #777777;
     border-radius: 8px;
     padding: 20px;
 }
 
 .screen {
     border: 2px solid black;
+    background-color: #373737;
     margin-bottom: 20px;
     border-radius: 8px;
     text-align:right;
@@ -21,21 +28,28 @@
 }
 
 .screenLastOp {
-    min-height: 32px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 293px;
+    height: 32px;
+    max-height: 32px;
+    white-space: nowrap;
     font-size: 20px;
+    color: #ebebeb;
+
+    
 }
 
 .screenCurrent {
-    min-height: 64px;
+    min-height: 50px;
     font-size: 40px;
-    
+    color: #ebebeb;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
-    
 }
 
 .span2 {
@@ -46,5 +60,41 @@ button {
     border-radius: 8px;
     padding: 20px;
     font-size: 20px;
-    
+    border: solid 2px black;
+}
+
+button:hover {
+    filter: brightness(75%)
+}
+
+button:active {
+    filter: brightness(50%);
+}
+
+.numButton {
+    background-color: #88a0b7;
+}
+
+.opButton {
+    background-color: #de7879;
+}
+
+.equalsButton {
+    background-color: #de7879;
+}
+
+.pointButton {
+    background-color: #88a0b7;
+}
+
+.clearButton {
+    background-color: #ebebeb;
+}
+
+.deleteButton {
+    background-color: #ebebeb;
+}
+
+.percentButton {
+    background-color: #ebebeb;
 }
